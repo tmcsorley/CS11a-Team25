@@ -30,32 +30,17 @@ public class finalProject {
     int playerAttack = 10; //Player attack power
     Boolean item = false; //The player initially has no items.
     Boolean playerBlock = false; //Player does not block by default.
-    int enemyHp = 0; //Enemy HP
-    int enemyDef = 0; //Enemy defense
-    int enemyAttack = 0; //Enemy attack
     int floorNumber = 1;
     System.out.println();
     System.out.println("You have entered the arena...");
     String[] enemies = new String[10];
     nameBasicEnemies(enemies);
     String enemyName = "" + enemies[(int)(Math.random() * 10)]; //Randomizes enemy name.
-    assignStats(enemyName, enemyHp, enemyDef, enemyAttack);
-    char c = enemyName.charAt(0);
-    try {
-      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
-    }
-    catch (InterruptedException e) {
-      e.printStackTrace(); //Prints exception.
-    }
-    if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') { //Determines if enemy name starts with a vowel
-      System.out.println();
-      System.out.println("An " + enemyName + " approaches.");
-    }
-    else{
-      System.out.println();
-      System.out.println("A " + enemyName + " approaches.");
-    }
-    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+    int[] enemyStats = assignStats(enemyName);
+    int enemyHp = enemyStats[0]; //Enemy HP
+    int enemyDef = enemyStats[1]; //Enemy defense
+    int enemyAttack = enemyStats[2]; //Enemy attack
+    enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
   }
 
   /** initializeEnemyArray creates a string array of various enemy names to be
@@ -76,7 +61,10 @@ public class finalProject {
 
 /* assignStats will assess which type of enemy is confronting the player and
   consequently decides the statistics of the enemy. It returns the stats in an array.*/
-  public static int[] assignStats(String enemyName, int enemyHp, int enemyDef, int enemyAttack){
+  public static int[] assignStats(String enemyName){
+    int enemyHp = 0; //Enemy HP
+    int enemyDef = 0; //Enemy defense
+    int enemyAttack = 0; //Enemy attack
     switch (enemyName){
       case "Goblin": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
       case "Skeleton": enemyHp = 40; enemyDef = 0; enemyAttack = 10; break;
@@ -97,6 +85,7 @@ public class finalProject {
   }
 
   public static void beginCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){ //Allow player options for combatting the enemy.
+
     System.out.println();
     System.out.println("Will you attack, defend, use item, or scan enemy?");
     String action = TextIO.getln();
@@ -104,46 +93,70 @@ public class finalProject {
       case "attack":
         int damage = (playerAttack - (int)(Math.random() * 3)) * (1 - (enemyDef/100)); //Algorithm calculates how much damage the player does.
       enemyHp = enemyHp - damage; //Deal damage.
-      System.out.printf("" + enemyName + " took %dn damage!",damage);
-      if (enemyHp > 0){ //Check if enemy survived attack.
-        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
-      }
-      else {
+      System.out.printf("" + enemyName + " took %d damage! %n",damage);
+      if (enemyHp <= 0){ //Check if enemy survived attack.
         System.out.println("You defeated the " + enemyName + "!");
         floorNumber++;
         newFloor(); //Go to next floor.
-        }
+      }
+      else if (enemyHp > 0){
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
+      }
       break;
       case "defend":
         playerBlock = true;
         enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+        break;
       case "item":
       case "use item": if (item == false){
         System.out.println("You have no items to use!");
+        break;
       } else {
         System.out.println("Which item?");
-      } break;
+        break;
+      }
       case "scan":
       case "scan enemy":
+      default: System.out.println("That is not a valid command!");
+      beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
     }
   }
 
   public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
-    int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
+    int damage = (enemyAttack - (int)(Math.random() * 1)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
     int blockDamage = (damage/2);
     if (playerBlock == false){
       playerHp = playerHp - damage;
     }
     else if (playerBlock == true){
       playerHp = playerHp - blockDamage;
-      System.out.printf("You took %dn damage!",blockDamage);
+      System.out.printf("You took %d damage! %n",blockDamage);
     }
     playerBlock = false;
     beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
   }
 
+  public static void enemyApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
+    char c = enemyName.charAt(0);
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') { //Determines if enemy name starts with a vowel
+      System.out.println();
+      System.out.println("An " + enemyName + " approaches.");
+    }
+    else{
+      System.out.println();
+      System.out.println("A " + enemyName + " approaches.");
+    }
+    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+  }
+
   public static void newFloor(){
-    
+
   }
 
   public static void quitGame(){
