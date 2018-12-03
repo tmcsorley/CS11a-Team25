@@ -92,45 +92,72 @@ public class finalProject {
     switch (action){
       case "attack":
         int damage = (playerAttack - (int)(Math.random() * 3)) * (1 - (enemyDef/100)); //Algorithm calculates how much damage the player does.
-      enemyHp = enemyHp - damage; //Deal damage.
-      System.out.printf("" + enemyName + " took %d damage! %n",damage);
-      if (enemyHp <= 0){ //Check if enemy survived attack.
-        System.out.println("You defeated the " + enemyName + "!");
-        floorNumber++;
-        newFloor(); //Go to next floor.
-      }
-      else if (enemyHp > 0){
-        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
-      }
-      break;
+        enemyHp = enemyHp - damage; //Deal damage.
+        System.out.printf("" + enemyName + " took %d damage! %n",damage);
+        try {
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+        }
+        catch (InterruptedException e) {
+          e.printStackTrace(); //Prints exception.
+        }
+        if (enemyHp <= 0){ //Check if enemy survived attack.
+          System.out.println("You defeated the " + enemyName + "!");
+          floorNumber++;
+          newFloor(); //Go to next floor.
+        }
+        else if (enemyHp > 0){
+          enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
+        }
+        break;
       case "defend":
         playerBlock = true;
         enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
         break;
       case "item":
-      case "use item": if (item == false){
-        System.out.println("You have no items to use!");
-        break;
-      } else {
-        System.out.println("Which item?");
-        break;
-      }
+      case "use item":
+        if (item == false){
+          System.out.println();
+          System.out.println("You have no items to use!");
+          beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+          break;
+        }
+        else {
+          System.out.println("Which item?");
+          break;
+        }
       case "scan":
       case "scan enemy":
+        System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+        break;
+      case "quit":
+      case "exit":
+      case "end": quitGame(); break;
       default: System.out.println("That is not a valid command!");
       beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
     }
   }
 
   public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
-    int damage = (enemyAttack - (int)(Math.random() * 1)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
+    int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
     int blockDamage = (damage/2);
     if (playerBlock == false){
       playerHp = playerHp - damage;
+      System.out.println();
+      System.out.printf("You took %d damage! %n",damage);
+      System.out.printf("Player HP: %d%n",playerHp);
     }
     else if (playerBlock == true){
       playerHp = playerHp - blockDamage;
+      System.out.println();
       System.out.printf("You took %d damage! %n",blockDamage);
+      System.out.printf("Player HP: %d%n",playerHp);
+    }
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
     }
     playerBlock = false;
     beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
