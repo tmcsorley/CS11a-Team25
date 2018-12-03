@@ -55,7 +55,7 @@ public class finalProject {
       System.out.println();
       System.out.println("A " + enemyName + " approaches.");
     }
-    beginCombat();
+    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
   }
 
   /** initializeEnemyArray creates a string array of various enemy names to be
@@ -96,7 +96,7 @@ public class finalProject {
     return enemyStats;
   }
 
-  public static void beginCombat(){ //Allow player options for combatting the enemy.
+  public static void beginCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){ //Allow player options for combatting the enemy.
     System.out.println();
     System.out.println("Will you attack, defend, use item, or scan enemy?");
     String action = TextIO.getln();
@@ -106,7 +106,7 @@ public class finalProject {
       enemyHp = enemyHp - damage; //Deal damage.
       System.out.printf("" + enemyName + " took %dn damage!",damage);
       if (enemyHp > 0){ //Check if enemy survived attack.
-        enemyAttack(); //Enemy's turn begins.
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
       }
       else {
         System.out.println("You defeated the " + enemyName + "!");
@@ -116,7 +116,7 @@ public class finalProject {
       break;
       case "defend":
         playerBlock = true;
-        enemyAttack();
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
       case "item":
       case "use item": if (item == false){
         System.out.println("You have no items to use!");
@@ -128,8 +128,8 @@ public class finalProject {
     }
   }
 
-  public static void enemyAttack(){
-    damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
+  public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
+    int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
     int blockDamage = (damage/2);
     if (playerBlock == false){
       playerHp = playerHp - damage;
@@ -138,7 +138,12 @@ public class finalProject {
       playerHp = playerHp - blockDamage;
       System.out.printf("You took %dn damage!",blockDamage);
     }
-    beginCombat();
+    playerBlock = false;
+    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+  }
+
+  public static void newFloor(){
+    
   }
 
   public static void quitGame(){
