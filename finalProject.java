@@ -1,4 +1,5 @@
 import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 
 public class finalProject {
   public static void main(String[] args){
@@ -19,15 +20,26 @@ public class finalProject {
       case "start": beginGame(); break;
       case "quit": quitGame(); break;
       case "credits": showCredits(); startMenu(); break;
+      default: System.out.println("I don't understand this command!"); startMenu(); break;
     }
   }
 
   public static void beginGame(){
+    int playerHp = 100; //Initialize player HP
+    int playerDef = 5; //Player defense
+    int playerAttack = 10; //Player attack power
+    Boolean item = false; //The player initially has no items.
+    Boolean playerBlock = false; //Player does not block by default.
+    int enemyHp = 0; //Enemy HP
+    int enemyDef = 0; //Enemy defense
+    int enemyAttack = 0; //Enemy attack
+    int floorNumber = 1;
     System.out.println();
     System.out.println("You have entered the arena...");
     String[] enemies = new String[10];
     nameBasicEnemies(enemies);
     String enemyName = "" + enemies[(int)(Math.random() * 10)]; //Randomizes enemy name.
+    assignStats(enemyName, enemyHp, enemyDef, enemyAttack);
     char c = enemyName.charAt(0);
     try {
       TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -35,7 +47,7 @@ public class finalProject {
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
     }
-    if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') {
+    if (c=='A' || c=='E' || c=='I' || c=='O' || c=='U') { //Determines if enemy name starts with a vowel
       System.out.println();
       System.out.println("An " + enemyName + " approaches.");
     }
@@ -43,6 +55,7 @@ public class finalProject {
       System.out.println();
       System.out.println("A " + enemyName + " approaches.");
     }
+    beginCombat();
   }
 
   /** initializeEnemyArray creates a string array of various enemy names to be
@@ -61,6 +74,72 @@ public class finalProject {
     return enemies;
   }
 
+/* assignStats will assess which type of enemy is confronting the player and
+  consequently decides the statistics of the enemy. It returns the stats in an array.*/
+  public static int[] assignStats(String enemyName, int enemyHp, int enemyDef, int enemyAttack){
+    switch (enemyName){
+      case "Goblin": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
+      case "Skeleton": enemyHp = 40; enemyDef = 0; enemyAttack = 10; break;
+      case "Blob Creature": enemyHp = 30; enemyDef = 40; enemyAttack = 5; break;
+      case "Mutant Bat": enemyHp = 30; enemyDef = 30; enemyAttack = 5; break;
+      case "Banshee": enemyHp = 40; enemyDef = 30; enemyAttack = 10; break;
+      case "Shadow Creature": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
+      case "Witch": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
+      case "Ogre": enemyHp = 60; enemyDef = 30; enemyAttack = 15; break;
+      case "Evil Fairy": enemyHp = 30; enemyDef = 30; enemyAttack = 5; break;
+      case "Enchanted Armor": enemyHp = 40; enemyDef = 50; enemyAttack = 10; break;
+    }
+    int[] enemyStats = new int[3];
+    enemyStats[0] = enemyHp;
+    enemyStats[1] = enemyDef;
+    enemyStats[2] = enemyAttack;
+    return enemyStats;
+  }
+
+  public static void beginCombat(){ //Allow player options for combatting the enemy.
+    System.out.println();
+    System.out.println("Will you attack, defend, use item, or scan enemy?");
+    String action = TextIO.getln();
+    switch (action){
+      case "attack":
+        int damage = (playerAttack - (int)(Math.random() * 3)) * (1 - (enemyDef/100)); //Algorithm calculates how much damage the player does.
+      enemyHp = enemyHp - damage; //Deal damage.
+      System.out.printf("" + enemyName + " took %dn damage!",damage);
+      if (enemyHp > 0){ //Check if enemy survived attack.
+        enemyAttack(); //Enemy's turn begins.
+      }
+      else {
+        System.out.println("You defeated the " + enemyName + "!");
+        floorNumber++;
+        newFloor(); //Go to next floor.
+        }
+      break;
+      case "defend":
+        playerBlock = true;
+        enemyAttack();
+      case "item":
+      case "use item": if (item == false){
+        System.out.println("You have no items to use!");
+      } else {
+        System.out.println("Which item?");
+      } break;
+      case "scan":
+      case "scan enemy":
+    }
+  }
+
+  public static void enemyAttack(){
+    damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
+    int blockDamage = (damage/2);
+    if (playerBlock == false){
+      playerHp = playerHp - damage;
+    }
+    else if (playerBlock == true){
+      playerHp = playerHp - blockDamage;
+      System.out.printf("You took %dn damage!",blockDamage);
+    }
+    beginCombat();
+  }
 
   public static void quitGame(){
     System.exit(0);
