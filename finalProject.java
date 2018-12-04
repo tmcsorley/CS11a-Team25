@@ -35,13 +35,10 @@ public class finalProject {
     String activeItem = ""; //Creates string location for item to be held.
     System.out.println();
     System.out.println("You have entered the arena...");
-    String[] enemies = new String[10];
-    nameBasicEnemies(enemies);
-    String enemyName = "" + enemies[(int)(Math.random() * 10)]; //Randomizes enemy name.
-    int[] enemyStats = assignStats(enemyName);
-    int enemyHp = enemyStats[0]; //Enemy HP
-    int enemyDef = enemyStats[1]; //Enemy defense
-    int enemyAttack = enemyStats[2]; //Enemy attack
+    String enemyName = ""; //Initializes enemy name string.
+    int enemyHp = 0; //Enemy HP
+    int enemyDef = 0; //Enemy defense
+    int enemyAttack = 0; //Enemy attack
     enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
@@ -103,7 +100,15 @@ public class finalProject {
           e.printStackTrace(); //Prints exception.
         }
         if (enemyHp <= 0){ //Check if enemy survived attack.
+          System.out.println();
           System.out.println("You defeated the " + enemyName + "!");
+          try {
+            TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+          }
+          catch (InterruptedException e) {
+            e.printStackTrace(); //Prints exception.
+          }
+          System.out.println();
           newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Go to next floor.
         }
         else if (enemyHp > 0){
@@ -135,27 +140,59 @@ public class finalProject {
                   else {
                     playerHp = maxHp;
                   }
+                  System.out.println();
                   System.out.println("You restored 50 HP.");
                   System.out.printf("Player HP: %d%n",playerHp);
+                  try {
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                  }
+                  catch (InterruptedException e) {
+                    e.printStackTrace(); //Prints exception.
+                  }
+                  System.out.println();
                   item = false;
                   beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                   break;
                 case "Large Potion":
                   playerHp = maxHp;
+                  System.out.println();
                   System.out.println("You fully healed.");
+                  try {
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                  }
+                  catch (InterruptedException e) {
+                    e.printStackTrace(); //Prints exception.
+                  }
+                  System.out.println();
                   item = false;
                   beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                   break;
                 case "Bomb":
                   enemyHp = enemyHp - 30;
                   if (enemyHp <= 0){ //Check if enemy survived attack.
+                    System.out.println();
                     System.out.println("You defeated the " + enemyName + "!");
                     item = false;
+                    try {
+                      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                    }
+                    catch (InterruptedException e) {
+                      e.printStackTrace(); //Prints exception.
+                    }
+                    System.out.println();
                     newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Go to next floor.
                   }
                   else {
+                    System.out.println();
                     System.out.println("Enemy took 30 damage!");
                     item = false;
+                    try {
+                      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                    }
+                    catch (InterruptedException e) {
+                      e.printStackTrace(); //Prints exception.
+                    }
+                    System.out.println();
                     beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                   }
                   break;
@@ -163,12 +200,27 @@ public class finalProject {
                   enemyDef = enemyDef - 4;
                   System.out.println("Enemy's defense decreased!");
                   item = false;
+                  try {
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                  }
+                  catch (InterruptedException e) {
+                    e.printStackTrace(); //Prints exception.
+                  }
+                  System.out.println();
                   beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                   break;
                 case "Weakening Elixir":
                   enemyAttack = enemyAttack - 4;
+                  System.out.println();
                   System.out.println("Enemy's attack power decreased!");
                   item = false;
+                  try {
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                  }
+                  catch (InterruptedException e) {
+                    e.printStackTrace(); //Prints exception.
+                  }
+                  System.out.println();
                   beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                   break;
               }
@@ -180,6 +232,12 @@ public class finalProject {
       case "scan":
       case "scan enemy":
         System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
+        try {
+          TimeUnit.SECONDS.sleep(3); //Waits 3 seconds.
+        }
+        catch (InterruptedException e) {
+          e.printStackTrace(); //Prints exception.
+        }
         enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         break;
       case "quit":
@@ -225,6 +283,13 @@ public class finalProject {
   }
 
   public static void enemyApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
+    String[] enemies = new String[10];
+    nameBasicEnemies(enemies);
+    enemyName = "" + enemies[(int)(Math.random() * 10)]; //Randomizes enemy name.
+    int[] enemyStats = assignStats(enemyName);
+    enemyHp = enemyStats[0]; //Enemy HP
+    enemyDef = enemyStats[1]; //Enemy defense
+    enemyAttack = enemyStats[2]; //Enemy attack
     char c = enemyName.charAt(0);
     try {
       TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -246,21 +311,116 @@ public class finalProject {
   /*newFloor increases floor number, levels up player, scans for trigger floors, and gives chance at receiving an item.*/
   public static void newFloor(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     floorNumber++;
-    if (floorNumber%5 == 0){
-      //Boss battle.
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
-    int numGen = (int)(Math.random() * 10);
-    if (numGen == 3 || numGen == 8 || numGen == 9){
-      item = true;
-      int itemGen = (int)(Math.random() * 5);
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    /*if (floorNumber%5 == 0){
+      //Boss battle.
+    }*/
+    int numGen = (int)(Math.random() * 10); //Generates random number.
+    if (numGen == 3 || numGen == 8 || numGen == 9){ //If RNG creates 3, 8, 9, an item is chosen.
+      int itemGen = (int)(Math.random() * 5); //Chooses random item.
+      String tempItem = "";
       switch (itemGen){
-        case 0: activeItem = "Potion";
-        case 1: activeItem = "Large Potion";
-        case 2: activeItem = "Bomb";
-        case 3: activeItem = "Shield-B-Gone";
-        case 4: activeItem = "Weakening Elixir";
+        case 0: tempItem = "Potion"; break;
+        case 1: tempItem = "Large Potion"; break;
+        case 2: tempItem = "Bomb"; break;
+        case 3: tempItem = "Shield-B-Gone"; break;
+        case 4: tempItem = "Weakening Elixir"; break;
+      }
+      if (item == false){
+        activeItem = tempItem;
+        System.out.println();
+        System.out.println("Congrats! You received a " + activeItem + "!");
+        item = true;
+      }
+      else if (item == true){
+        System.out.println("Would you like to swap your " + activeItem + " with a " + tempItem + "?");
+        String yesNo = "";
+        do {
+          yesNo = TextIO.getln();
+          if (yesNo.equalsIgnoreCase("yes")){
+            activeItem = tempItem;
+            System.out.println();
+            System.out.println("Congrats! You received a " + activeItem + "!");
+            break;
+          }
+          else if (yesNo.equalsIgnoreCase("no")){
+            break;
+          }
+          else {
+            System.out.println("Not a valid answer. Yes or no?");
+          }
+        } while (!yesNo.equalsIgnoreCase("yes") || !yesNo.equalsIgnoreCase("no"));
+      }
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
       }
     }
+    System.out.println();
+    System.out.println("Please choose a stat to increase:");
+    System.out.println("'HP', 'Defense', 'Attack'");
+    String levelUp = TextIO.getln();
+    if (levelUp.equalsIgnoreCase("hp")){
+      maxHp = maxHp + 10; //Max health increase.
+      playerHp = playerHp + 10; //Immediate health increase.
+      playerHp = playerHp + ((maxHp - playerHp)/2); //Heals half of missing health.
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+      System.out.printf("Your HP is now %d! %n", maxHp);
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+      System.out.println("You healed 50% of your lost health.");
+    }
+    else if (levelUp.equalsIgnoreCase("defense")){
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+      playerDef = playerDef + 1;
+      System.out.println("Your defense has increased!");
+    }
+    else if (levelUp.equalsIgnoreCase("attack")){
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+      playerAttack = playerAttack + 1;
+      System.out.println("Your attack has increased!");
+    }
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    System.out.println();
+    System.out.printf("Now entering floor %d...%n",floorNumber);
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
   public static void gameOver(String enemyName, int floorNumber){
