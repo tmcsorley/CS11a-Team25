@@ -31,7 +31,7 @@ public class finalProject {
     int playerAttack = 10; //Player attack power
     Boolean item = false; //The player initially has no items.
     Boolean playerBlock = false; //Player does not block by default.
-    int floorNumber = 4;
+    int floorNumber = 1;
     String activeItem = ""; //Creates string location for item to be held.
     System.out.println();
     System.out.println("You have entered the arena...");
