@@ -26,11 +26,13 @@ public class finalProject {
 
   public static void beginGame(){
     int playerHp = 100; //Initialize player HP
+    int maxHp = 100; //Maintains player's max HP despite player taking damage. Can increase but not decrease.
     int playerDef = 5; //Player defense
     int playerAttack = 10; //Player attack power
     Boolean item = false; //The player initially has no items.
     Boolean playerBlock = false; //Player does not block by default.
     int floorNumber = 1;
+    String activeItem = ""; //Creates string location for item to be held.
     System.out.println();
     System.out.println("You have entered the arena...");
     String[] enemies = new String[10];
@@ -40,7 +42,7 @@ public class finalProject {
     int enemyHp = enemyStats[0]; //Enemy HP
     int enemyDef = enemyStats[1]; //Enemy defense
     int enemyAttack = enemyStats[2]; //Enemy attack
-    enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+    enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
   /** initializeEnemyArray creates a string array of various enemy names to be
@@ -84,7 +86,7 @@ public class finalProject {
     return enemyStats;
   }
 
-  public static void beginCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){ //Allow player options for combatting the enemy.
+  public static void beginCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){ //Allow player options for combatting the enemy.
 
     System.out.println();
     System.out.println("Will you attack, defend, use item, or scan enemy?");
@@ -102,56 +104,115 @@ public class finalProject {
         }
         if (enemyHp <= 0){ //Check if enemy survived attack.
           System.out.println("You defeated the " + enemyName + "!");
-          floorNumber++;
-          newFloor(); //Go to next floor.
+          newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Go to next floor.
         }
         else if (enemyHp > 0){
-          enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName); //Enemy's turn begins.
+          enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Enemy's turn begins.
         }
         break;
       case "defend":
         playerBlock = true;
-        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         break;
       case "item":
       case "use item":
         if (item == false){
           System.out.println();
           System.out.println("You have no items to use!");
-          beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+          beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
           break;
         }
-        else {
-          System.out.println("Which item?");
+        else if (item == true){
+          System.out.println("Use the " + activeItem + "?");
+          String yesNo = TextIO.getln();
+          switch (yesNo){ //Test for yes or no response.
+            case "yes":
+              switch (activeItem){
+                case "Potion":
+                  if (playerHp < (maxHp - 50)){
+                    playerHp = playerHp + 50;
+                  }
+                  else {
+                    playerHp = maxHp;
+                  }
+                  System.out.println("You restored 50 HP.");
+                  System.out.printf("Player HP: %d%n",playerHp);
+                  item = false;
+                  beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+                  break;
+                case "Large Potion":
+                  playerHp = maxHp;
+                  System.out.println("You fully healed.");
+                  item = false;
+                  beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+                  break;
+                case "Bomb":
+                  enemyHp = enemyHp - 30;
+                  if (enemyHp <= 0){ //Check if enemy survived attack.
+                    System.out.println("You defeated the " + enemyName + "!");
+                    item = false;
+                    newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Go to next floor.
+                  }
+                  else {
+                    System.out.println("Enemy took 30 damage!");
+                    item = false;
+                    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+                  }
+                  break;
+                case "Shield-B-Gone":
+                  enemyDef = enemyDef - 4;
+                  System.out.println("Enemy's defense decreased!");
+                  item = false;
+                  beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+                  break;
+                case "Weakening Elixir":
+                  enemyAttack = enemyAttack - 4;
+                  System.out.println("Enemy's attack power decreased!");
+                  item = false;
+                  beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+                  break;
+              }
+            case "no": beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); break;
+            default: System.out.println("Not a valid command!"); beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); break;
+          }
           break;
         }
       case "scan":
       case "scan enemy":
         System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
-        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+        enemyAttack(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         break;
       case "quit":
       case "exit":
       case "end": quitGame(); break;
       default: System.out.println("That is not a valid command!");
-      beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+      beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
     }
   }
 
-  public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
+  public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
     int blockDamage = (damage/2);
     if (playerBlock == false){
       playerHp = playerHp - damage;
+      if (playerHp < 0){
+        playerHp = 0;
+      }
       System.out.println();
       System.out.printf("You took %d damage! %n",damage);
       System.out.printf("Player HP: %d%n",playerHp);
     }
     else if (playerBlock == true){
       playerHp = playerHp - blockDamage;
+      if (playerHp < 0){
+        playerHp = 0;
+      }
       System.out.println();
       System.out.printf("You took %d damage! %n",blockDamage);
       System.out.printf("Player HP: %d%n",playerHp);
+    }
+    if (playerHp == 0){
+      gameOver(enemyName, floorNumber);
     }
     try {
       TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -160,10 +221,10 @@ public class finalProject {
       e.printStackTrace(); //Prints exception.
     }
     playerBlock = false;
-    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
-  public static void enemyApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName){
+  public static void enemyApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     char c = enemyName.charAt(0);
     try {
       TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -179,11 +240,64 @@ public class finalProject {
       System.out.println();
       System.out.println("A " + enemyName + " approaches.");
     }
-    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName);
+    beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
-  public static void newFloor(){
+  /*newFloor increases floor number, levels up player, scans for trigger floors, and gives chance at receiving an item.*/
+  public static void newFloor(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
+    floorNumber++;
+    if (floorNumber%5 == 0){
+      //Boss battle.
+    }
+    int numGen = (int)(Math.random() * 10);
+    if (numGen == 3 || numGen == 8 || numGen == 9){
+      item = true;
+      int itemGen = (int)(Math.random() * 5);
+      switch (itemGen){
+        case 0: activeItem = "Potion";
+        case 1: activeItem = "Large Potion";
+        case 2: activeItem = "Bomb";
+        case 3: activeItem = "Shield-B-Gone";
+        case 4: activeItem = "Weakening Elixir";
+      }
+    }
+  }
 
+  public static void gameOver(String enemyName, int floorNumber){
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    System.out.println();
+    System.out.println("You have perished at the hands of the " + enemyName + ".");
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    System.out.println();
+    if (floorNumber == 1){
+      System.out.printf("You only reached one floor...");
+    }
+    else {
+      System.out.printf("You reached %d floors.%n",floorNumber);
+    }
+    try {
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace(); //Prints exception.
+    }
+    System.out.println();
+    System.out.println("Would you like to 'quit', or 'replay'?");
+    String endResponse = TextIO.getln();
+    switch (endResponse){
+      case "quit": quitGame(); break;
+      case "replay": beginGame(); break;
+    }
   }
 
   public static void quitGame(){
