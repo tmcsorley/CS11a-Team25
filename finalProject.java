@@ -1,7 +1,18 @@
 import java.util.concurrent.TimeUnit;
 import java.util.Arrays;
 
-public class finalProject {
+//Developed by Thomas McSorley and Daniel Sun (CS11a Team 25)
+//  12/5/18
+
+/* This project is a game in which the user enters an arena of enemies and combats
+* them. The player has multiple options of strategy during combat. The player can
+* increase their stats, and can ascend floors. The enemies' stats scale as floor
+* number increases, and the player will come across various items & bosses.
+*
+*                             Battle on, Player!
+*/
+
+public class FinalProject {
   public static void main(String[] args){
     System.out.println("Welcome to Gladiator Arena!"); //Introduction to the user.
     try {
@@ -121,17 +132,18 @@ public class finalProject {
     }
     else if(floorNumber > 5 & floorNumber < 10){   //enemy stat scaling
       enemyStats[0] = (int)(enemyHp * 1.5);
-      enemyStats[1] = enemyDef + 10;
-      enemyStats[2] = (int)(enemyAttack * 1.6);
+      enemyStats[1] = enemyDef + 9;
+      enemyStats[2] = (int)(enemyAttack * 1.5);
     }
     else if(floorNumber > 10){
-      enemyStats[0] = (int)(enemyHp * 3);
-      enemyStats[1] = enemyDef + 20;
-      enemyStats[2] = (int)(enemyAttack * 3);
+      enemyStats[0] = (int)(enemyHp * 2);
+      enemyStats[1] = enemyDef + 13;
+      enemyStats[2] = (int)(enemyAttack * 2);
     }
     return enemyStats;
   }
 
+  //*beginCombat allows the player to combat the enemy.
   public static void beginCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     System.out.println();
     System.out.println("Will you attack, defend, use item, or scan enemy?");
@@ -156,7 +168,6 @@ public class finalProject {
           catch (InterruptedException e) {
             e.printStackTrace(); //Prints exception.
           }
-          System.out.println();
           newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp); //Go to next floor.
         }
         else if (enemyHp > 0){
@@ -296,7 +307,7 @@ public class finalProject {
     }
   }
 
-
+  //*beginBossCombat initiates combat with a boss and contains unique scenarios.
   public static void beginBossCombat(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     System.out.println();
     System.out.println("Will you attack, defend, use item, or scan enemy?");
@@ -461,15 +472,18 @@ public class finalProject {
     }
   }
 
-   public static void bossAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
+  //*bossAttack contains scenarios for each boss's attacks.
+  public static void bossAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     if(enemyName.equals("Guardian Deity of the Skies, Griffin")){
       int attack =(int)(Math.random() * 10);
       if(attack <= 1){
+          System.out.println();
           System.out.println("The Griffin looks down on you with contempt. Your attacks mean nothing to it. (boss does nothing)");
           beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         }
     if(attack >=2 & attack <= 5){
 
+        System.out.println();
         System.out.println("The mighty Griffin rakes his claws at you.");
 
         int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
@@ -506,17 +520,20 @@ public class finalProject {
       }
       if(attack==6){
         int heal = ((int)(Math.random()) * 4 + 8);
+        System.out.println();
         System.out.println("With a surge of energy the Griffin heals himself! Griffin heals " + heal + "!");
         enemyHp = enemyHp + heal;
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         }
       if(attack==7 || attack ==8){
+        System.out.println();
         System.out.println("The griffin readys his claws... (boss attack up!)");
         enemyAttack = enemyAttack + 1;
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
         }
       else{
-        System.out.println("the griffin steels himself for your attack... (boss def up!)");
+        System.out.println();
+        System.out.println("The griffin steels himself for your attack... (Boss Def Up!)");
         enemyDef = enemyDef + 5;
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       }
@@ -528,10 +545,9 @@ public class finalProject {
       if(attack >= 8 & attack2 >=7){
         System.out.println();
         System.out.println("The Eidolon rears its head. It looks like a big attack is coming!!");
-
         System.out.println();
         System.out.println("Will you attack, defend, use item, or scan enemy?");
-        String action = TextIO.getln();
+        String action = TextIO.getln(); //This coming section creates a two-turn timer for a boss attack during which the user can decide if they want to defend
         switch (action){
           case "attack":
             int damage = (playerAttack - (int)(Math.random() * 3)) * (1 - (enemyDef/100)); //Algorithm calculates how much damage the player does.
@@ -562,7 +578,7 @@ public class finalProject {
               if (playerBlock == false){
                 playerHp = playerHp - damage;
                 if (playerHp < 0){
-                  playerHp = 0;                                 //this section creates a two turn timer for an attack when you can decide if you want to defend
+                  playerHp = 0;
                 }
                 System.out.println();
                 System.out.printf("You took %d damage! %n",damage);
@@ -658,6 +674,14 @@ public class finalProject {
                       }
                       System.out.println();
                       item = false;
+                      System.out.println("The Eidolon is wary of the item you used, and stalls its charge...");
+                      try {
+                        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+                      }
+                      catch (InterruptedException e) {
+                        e.printStackTrace(); //Prints exception.
+                      }
+                      System.out.println();
                       beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                       break;
                     case "Large Potion":
@@ -672,6 +696,14 @@ public class finalProject {
                       }
                       System.out.println();
                       item = false;
+                      System.out.println("The Eidolon is wary of the item you used, and stalls its charge...");
+                      try {
+                        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+                      }
+                      catch (InterruptedException e) {
+                        e.printStackTrace(); //Prints exception.
+                      }
+                      System.out.println();
                       beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                       break;
                     case "Bomb":
@@ -700,6 +732,14 @@ public class finalProject {
                           e.printStackTrace(); //Prints exception.
                         }
                         System.out.println();
+                        System.out.println("The Eidolon is wary of the item you used, and stalls its charge...");
+                        try {
+                          TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+                        }
+                        catch (InterruptedException e) {
+                          e.printStackTrace(); //Prints exception.
+                        }
+                        System.out.println();
                         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                       }
                       break;
@@ -714,6 +754,14 @@ public class finalProject {
                         e.printStackTrace(); //Prints exception.
                       }
                       System.out.println();
+                      System.out.println("The Eidolon is wary of the item you used, and stalls its charge...");
+                      try {
+                        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+                      }
+                      catch (InterruptedException e) {
+                        e.printStackTrace(); //Prints exception.
+                      }
+                      System.out.println();
                       beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
                       break;
                     case "Weakening Elixir":
@@ -723,6 +771,14 @@ public class finalProject {
                       item = false;
                       try {
                         TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+                      }
+                      catch (InterruptedException e) {
+                        e.printStackTrace(); //Prints exception.
+                      }
+                      System.out.println();
+                      System.out.println("The Eidolon is wary of the item you used, and stalls its charge...");
+                      try {
+                        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
                       }
                       catch (InterruptedException e) {
                         e.printStackTrace(); //Prints exception.
@@ -755,7 +811,7 @@ public class finalProject {
         }
 
       }
-      if(attack >=2 & attack <= 4){
+      if(attack >=2 && attack <= 4){
         System.out.println();
         System.out.println("With a great bellow, the Eidolon fires icy bolts at you.");
 
@@ -792,6 +848,7 @@ public class finalProject {
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       }
       else {
+        System.out.println();
         System.out.println("The Eidolon stares at you, unblinking... (boss does nothing)");
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       }
@@ -802,12 +859,12 @@ public class finalProject {
       int attack =(int)(Math.random() * 10);
       if(attack <=3){
         System.out.println();
-        System.out.println("Pitiful human. You DARE challenge the great Maloch?! I will have your SOUL!! (Boss does nothing)");
+        System.out.println("'Pitiful human. You DARE challenge the great Maloch?! I will have your SOUL!!' (Boss does nothing)");
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       }
       else if(attack >=4 & attack <= 7){
         System.out.println();
-        System.out.println("Feel the heat of my undying flames!");
+        System.out.println("'Feel the heat of my undying flames!'");
         int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
         int blockDamage = (damage/2);
         if (playerBlock == false){
@@ -843,14 +900,14 @@ public class finalProject {
     else if(attack >=8){
       if(item==true){
         System.out.println();
-        System.out.println("Pitiful fool,  you thought " + activeItem + " could save you? (Maloch steals your item)");
+        System.out.println("'Pitiful! You thought the " + activeItem + " could save you?' (Maloch steals your item)");
         item = false;
         activeItem = "";
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       }
       if(item==false){
         System.out.println();
-        System.out.println("You DARE underestimate ME? The pinnacle of all Demons? Fine, I will show you TRUE POWER.");
+        System.out.println("'You DARE underestimate ME? The pinnacle of all Demons? Fine, I will show you TRUE POWER.'");
         enemyAttack = enemyAttack + 3;
         enemyDef = enemyDef + 5;
         beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
@@ -859,17 +916,31 @@ public class finalProject {
 
     }
     else if(enemyName.equals("Cowardly Human, Josh")){
-      System.out.println("Please don't hurt me... I'm just a weak human... just look at my stats...");
+      System.out.println();
+      System.out.println("'Please don't hurt me... I'm just a weak human... just look at my stats...'");
       System.out.println("Hp: " + enemyHp + "    Atk: " + enemyAttack + "      Def: " + enemyDef);
       try {
-        TimeUnit.SECONDS.sleep(4); //Waits 4 second.
+        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
-      System.out.println("See, I'm no match for you oh great and powerful warrior!..... I'll just take my leave.....");
       System.out.println();
-      System.out.println("" + enemyName + " has just fleed!");
+      System.out.println("'See, I'm no match for you oh great and powerful warrior!..... I'll just take my leave.....'");
+      System.out.println();
+      try {
+        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+      System.out.println("" + enemyName + " has just fled!");
+      try {
+        TimeUnit.SECONDS.sleep(3); //Waits 3 seconds.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
       newFloor(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
     }
   }
@@ -877,7 +948,7 @@ public class finalProject {
 
 
 
-
+  //*enemyAttack contains the enemy's method of attacking and algorithms for damage to player.
   public static void enemyAttack(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     int damage = (enemyAttack - (int)(Math.random() * 3)) * (1 - (playerDef/100)); //Algorithm calculates how much damage the player takes.
     int blockDamage = (damage/2);
@@ -912,6 +983,7 @@ public class finalProject {
     beginCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
   }
 
+    //*bossApproach deals with the presentation of bosses.
     public static void bossApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
       String[] boss = new String [4];
       nameBoss(boss);
@@ -928,6 +1000,7 @@ public class finalProject {
       }
       switch(enemyName){
         case "Cowardly Human, Josh" :
+          System.out.println();
           System.out.println("Steel your wits! Calm your mind! Prepare yourself Warrior, for " + enemyName + " approaches!");
             try {
               TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
@@ -935,36 +1008,39 @@ public class finalProject {
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
             }
-            System.out.println("....Cowardly?");
+            System.out.println("'....Cowardly?'");
             try {
-              TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
             }
-            System.out.println("....Human?");
+            System.out.println("'....Human?'");
             try {
-              TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
             }
-            System.out.println("....JOSH?!?");
+            System.out.println("'....JOSH?!?'");
+            System.out.println();
             beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       break;
-      default :   System.out.println("Steel your wits! Calm your mind! Prepare yourself Warrior, for " + enemyName + " approaches!");
-      try {
-        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
-      }
-      catch (InterruptedException e) {
-        e.printStackTrace(); //Prints exception.
-      }
-      beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
-      break;
+      default :
+        System.out.println();
+        System.out.println("Steel your wits! Calm your mind! Prepare yourself Warrior, for " + enemyName + " approaches!");
+        try {
+          TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
+        }
+        catch (InterruptedException e) {
+          e.printStackTrace(); //Prints exception.
+        }
+        beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
+        break;
     }
   }
 
-
+  //*enemyApproach deals with the presentation of enemies.
   public static void enemyApproach(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     String[] enemies = new String[10];
     nameBasicEnemies(enemies);
@@ -1000,8 +1076,8 @@ public class finalProject {
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
     }
-    if (floorNumber%6 == 0){
-      System.out.println("Brave warrior, for defeating the legendary " + enemyName + ". The Gods have granted you their blessings! (All stats up)");
+    if ((floorNumber%5 - 1) == 0){
+      System.out.println("Brave warrior, for defeating the legendary " + enemyName + ", the Gods have granted you their blessings! (All stats up)");
       playerAttack = playerAttack + 5;
       maxHp = maxHp + 15;
       playerHp = maxHp;
@@ -1013,7 +1089,7 @@ public class finalProject {
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
-
+      System.out.println();
       System.out.printf("Your current and max hp is %d. %n", maxHp);
       System.out.printf("Your current attack is %d. %n", playerAttack);
       System.out.printf("Your current def is %d. %n", playerDef);
@@ -1074,6 +1150,7 @@ public class finalProject {
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
+      System.out.println();
       System.out.println("Be wary.... the enemies have grown much stronger....");
       try {
         TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
@@ -1081,6 +1158,7 @@ public class finalProject {
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
+      System.out.println();
       System.out.printf("Now entering floor %d...%n", floorNumber);
       try {
         TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -1090,18 +1168,18 @@ public class finalProject {
       }
       enemyApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
     }
-  else {
-    int numGen = (int)(Math.random() * 10); //Generates random number.
-    if (numGen == 3 || numGen == 8 || numGen == 9){ //If RNG creates 3, 8, 9, an item is chosen.
-      int itemGen = (int)(Math.random() * 5); //Chooses random item.
-      String tempItem = "";
-      switch (itemGen){
-        case 0: tempItem = "Potion"; break;
-        case 1: tempItem = "Large Potion"; break;
-        case 2: tempItem = "Bomb"; break;
-        case 3: tempItem = "Shield-B-Gone"; break;
-        case 4: tempItem = "Weakening Elixir"; break;
-      }
+    else {
+      int numGen = (int)(Math.random() * 10); //Generates random number.
+      if (numGen == 3 || numGen == 8 || numGen == 9){ //If RNG creates 3, 8, 9, an item is chosen.
+        int itemGen = (int)(Math.random() * 5); //Chooses random item.
+        String tempItem = "";
+        switch (itemGen){
+          case 0: tempItem = "Potion"; break;
+          case 1: tempItem = "Large Potion"; break;
+          case 2: tempItem = "Bomb"; break;
+          case 3: tempItem = "Shield-B-Gone"; break;
+          case 4: tempItem = "Weakening Elixir"; break;
+        }
       if (item == false){
         activeItem = tempItem;
         System.out.println();
@@ -1160,25 +1238,100 @@ public class finalProject {
     }
     else if (levelUp.equalsIgnoreCase("defense")){
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+        TimeUnit.SECONDS.sleep(1); //Waits 2 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
       playerDef = playerDef + 3;
       System.out.println("Your defense has increased!");
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
       System.out.printf("Your current defense is %d. %n", playerDef);
-    }
-    else if (levelUp.equalsIgnoreCase("attack")){
       try {
         TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
+    }
+    else if (levelUp.equalsIgnoreCase("attack")){
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 seconds.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
       playerAttack = playerAttack + 3;
       System.out.println("Your attack has increased!");
+      try {
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
       System.out.printf("Your current attack is %d. %n", playerAttack);
+      try {
+        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
+    }
+    else {
+      do {
+        System.out.println("Please select a stat 'hp', 'defense', or 'attack'.");
+        levelUp = TextIO.getln();
+        if (levelUp.equalsIgnoreCase("hp")){
+          maxHp = maxHp + 10; //Max health increase.
+          playerHp = playerHp + 10; //Immediate health increase.
+          playerHp = playerHp + ((maxHp - playerHp)/2); //Heals half of missing health.
+          try {
+            TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+          }
+          catch (InterruptedException e) {
+            e.printStackTrace(); //Prints exception.
+          }
+          System.out.printf("Your maximum HP is now %d! %n", maxHp);
+          try {
+            TimeUnit.SECONDS.sleep(1); //Waits 1 second.
+          }
+          catch (InterruptedException e) {
+            e.printStackTrace(); //Prints exception.
+          }
+          System.out.println("You healed 50% of your lost health.");
+          System.out.printf("Your current HP is now %d! %n", playerHp);
+          break;
+        }
+        else if (levelUp.equalsIgnoreCase("defense")){
+          try {
+            TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+          }
+          catch (InterruptedException e) {
+            e.printStackTrace(); //Prints exception.
+          }
+          playerDef = playerDef + 3;
+          System.out.println("Your defense has increased!");
+          System.out.printf("Your current defense is %d. %n", playerDef);
+          break;
+        }
+        else if (levelUp.equalsIgnoreCase("attack")){
+          try {
+            TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
+          }
+          catch (InterruptedException e) {
+            e.printStackTrace(); //Prints exception.
+          }
+          playerAttack = playerAttack + 3;
+          System.out.println("Your attack has increased!");
+          System.out.printf("Your current attack is %d. %n", playerAttack);
+          break;
+        }
+      } while (!levelUp.equalsIgnoreCase("hp") || !levelUp.equalsIgnoreCase("defense") || !levelUp.equalsIgnoreCase("attack"));
     }
     try {
       TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
@@ -1197,10 +1350,12 @@ public class finalProject {
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
+      System.out.println();
       System.out.printf("Now entering floor %d...%n", floorNumber);
       bossApproach(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
     }
     else {
+      System.out.println();
       System.out.printf("Now entering floor %d...%n",floorNumber);
       try {
         TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -1213,6 +1368,7 @@ public class finalProject {
     }
   }
 
+  //*gameOver deals with player's death and displaying game over messages
   public static void gameOver(String enemyName, int floorNumber){
     try {
       TimeUnit.SECONDS.sleep(1); //Waits 1 second.
@@ -1250,10 +1406,12 @@ public class finalProject {
     }
   }
 
+  // Exits game.
   public static void quitGame(){
     System.exit(0);
   }
 
+  //Displays credits from devCredits.txt.
   public static void showCredits(){
     System.out.println();
     String filename = "devCredits.txt";
