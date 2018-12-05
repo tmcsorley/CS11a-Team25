@@ -71,9 +71,9 @@ public class finalProject {
     int enemyDef = 0; //Enemy defense
     int enemyAttack = 0; //Enemy attack
     switch(enemyName){
-      case "Guardian Deity of the Skies, Griffin": enemyHp = 125; enemyDef = 50; enemyAttack = 25; break;
-      case "Eidolon of the Mystic Fog, Aurora": enemyHp = 100; enemyDef = 65; enemyAttack = 20; break;
-      case "Dire Demon of the Abyss, Maloch": enemyHp = 150; enemyDef = 25; enemyAttack = 15; break;
+      case "Guardian Deity of the Skies, Griffin": enemyHp = 115; enemyDef = 50; enemyAttack = 13; break;
+      case "Eidolon of the Mystic Fog, Aurora": enemyHp = 100; enemyDef = 65; enemyAttack = 15; break;
+      case "Dire Demon of the Abyss, Maloch": enemyHp = 125; enemyDef = 25; enemyAttack = 12; break;
       case "Cowardly Human, Josh": enemyHp = 1000; enemyDef = 90; enemyAttack = 100; break;
     }
     int[] enemyStats = new int[3];
@@ -109,7 +109,7 @@ public class finalProject {
       case "Banshee": enemyHp = 40; enemyDef = 30; enemyAttack = 10; break;
       case "Shadow Creature": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
       case "Witch": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
-      case "Ogre": enemyHp = 60; enemyDef = 30; enemyAttack = 15; break;
+      case "Ogre": enemyHp = 50; enemyDef = 30; enemyAttack = 10; break;
       case "Evil Fairy": enemyHp = 30; enemyDef = 30; enemyAttack = 5; break;
       case "Enchanted Armor": enemyHp = 40; enemyDef = 50; enemyAttack = 10; break;
     }
