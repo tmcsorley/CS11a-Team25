@@ -5,7 +5,7 @@ public class finalProject {
   public static void main(String[] args){
     System.out.println("Welcome to Gladiator Arena!"); //Introduction to the user.
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -142,7 +142,7 @@ public class finalProject {
         enemyHp = enemyHp - damage; //Deal damage.
         System.out.printf("" + enemyName + " took %d damage! %n",damage);
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -151,7 +151,7 @@ public class finalProject {
           System.out.println();
           System.out.println("You defeated the " + enemyName + "!");
           try {
-            TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+            TimeUnit.SECONDS.sleep(1); //Waits 1 second.
           }
           catch (InterruptedException e) {
             e.printStackTrace(); //Prints exception.
@@ -192,7 +192,7 @@ public class finalProject {
                   System.out.println("You restored 50 HP.");
                   System.out.printf("Player HP: %d%n",playerHp);
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -206,7 +206,7 @@ public class finalProject {
                   System.out.println();
                   System.out.println("You have been fully healed.");
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -222,7 +222,7 @@ public class finalProject {
                     System.out.println("You defeated the " + enemyName + "!");
                     item = false;
                     try {
-                      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                     }
                     catch (InterruptedException e) {
                       e.printStackTrace(); //Prints exception.
@@ -235,7 +235,7 @@ public class finalProject {
                     System.out.println("Enemy took 30 damage!");
                     item = false;
                     try {
-                      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                     }
                     catch (InterruptedException e) {
                       e.printStackTrace(); //Prints exception.
@@ -249,7 +249,7 @@ public class finalProject {
                   System.out.println("Enemy's defense decreased!");
                   item = false;
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -263,7 +263,7 @@ public class finalProject {
                   System.out.println("Enemy's attack power decreased!");
                   item = false;
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -281,7 +281,7 @@ public class finalProject {
       case "scan enemy":
         System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 3 seconds.
+          TimeUnit.SECONDS.sleep(3); //Waits 3 seconds.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -307,7 +307,7 @@ public class finalProject {
         enemyHp = enemyHp - damage; //Deal damage.
         System.out.printf("" + enemyName + " took %d damage! %n",damage);
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -316,7 +316,7 @@ public class finalProject {
           System.out.println();
           System.out.println("Congratulations Mighty Warrior! You have defeated " + enemyName + "! On this day a new legend has been born!");
           try {
-            TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+            TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
           }
           catch (InterruptedException e) {
             e.printStackTrace(); //Prints exception.
@@ -357,7 +357,7 @@ public class finalProject {
                   System.out.println("You restored 50 HP.");
                   System.out.printf("Player HP: %d%n",playerHp);
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -371,7 +371,7 @@ public class finalProject {
                   System.out.println();
                   System.out.println("You have been fully healed.");
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -387,7 +387,7 @@ public class finalProject {
                     System.out.println("Congratulations proud Warrior! you have defeated " + enemyName + "! A legend has been born!");
                     item = false;
                     try {
-                      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                      TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
                     }
                     catch (InterruptedException e) {
                       e.printStackTrace(); //Prints exception.
@@ -400,7 +400,7 @@ public class finalProject {
                     System.out.println("Enemy took 30 damage!");
                     item = false;
                     try {
-                      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                     }
                     catch (InterruptedException e) {
                       e.printStackTrace(); //Prints exception.
@@ -414,7 +414,7 @@ public class finalProject {
                   System.out.println("Enemy's defense decreased!");
                   item = false;
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -428,7 +428,7 @@ public class finalProject {
                   System.out.println("Enemy's attack power decreased!");
                   item = false;
                   try {
-                    TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                    TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                   }
                   catch (InterruptedException e) {
                     e.printStackTrace(); //Prints exception.
@@ -446,7 +446,7 @@ public class finalProject {
       case "scan enemy":
         System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 3 seconds.
+          TimeUnit.SECONDS.sleep(3); //Waits 3 seconds.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -496,7 +496,7 @@ public class finalProject {
           gameOver(enemyName, floorNumber);
         }
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -538,7 +538,7 @@ public class finalProject {
             enemyHp = enemyHp - damage; //Deal damage.
             System.out.printf("" + enemyName + " took %d damage! %n",damage);
             try {
-              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(1); //Waits 1 second.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
@@ -547,7 +547,7 @@ public class finalProject {
               System.out.println();
               System.out.println("Congratulations Mighty Warrior! You have defeated " + enemyName + "! On this day a new legend has been born!");
               try {
-                TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                TimeUnit.SECONDS.sleep(4); //Waits 1 second.
               }
               catch (InterruptedException e) {
                 e.printStackTrace(); //Prints exception.
@@ -581,7 +581,7 @@ public class finalProject {
                 gameOver(enemyName, floorNumber);
               }
               try {
-                TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                TimeUnit.SECONDS.sleep(1); //Waits 1 second.
               }
               catch (InterruptedException e) {
                 e.printStackTrace(); //Prints exception.
@@ -618,7 +618,7 @@ public class finalProject {
             gameOver(enemyName, floorNumber);
           }
           try {
-            TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+            TimeUnit.SECONDS.sleep(1); //Waits 1 second.
           }
           catch (InterruptedException e) {
             e.printStackTrace(); //Prints exception.
@@ -651,7 +651,7 @@ public class finalProject {
                       System.out.println("You restored 50 HP.");
                       System.out.printf("Player HP: %d%n",playerHp);
                       try {
-                        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
                       }
                       catch (InterruptedException e) {
                         e.printStackTrace(); //Prints exception.
@@ -665,7 +665,7 @@ public class finalProject {
                       System.out.println();
                       System.out.println("You have been fully healed.");
                       try {
-                        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                       }
                       catch (InterruptedException e) {
                         e.printStackTrace(); //Prints exception.
@@ -681,7 +681,7 @@ public class finalProject {
                         System.out.println("Congratulations proud Warrior! you have defeated " + enemyName + "! A legend has been born!");
                         item = false;
                         try {
-                          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                          TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
                         }
                         catch (InterruptedException e) {
                           e.printStackTrace(); //Prints exception.
@@ -694,7 +694,7 @@ public class finalProject {
                         System.out.println("Enemy took 30 damage!");
                         item = false;
                         try {
-                          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                         }
                         catch (InterruptedException e) {
                           e.printStackTrace(); //Prints exception.
@@ -708,7 +708,7 @@ public class finalProject {
                       System.out.println("Enemy's defense decreased!");
                       item = false;
                       try {
-                        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                       }
                       catch (InterruptedException e) {
                         e.printStackTrace(); //Prints exception.
@@ -722,7 +722,7 @@ public class finalProject {
                       System.out.println("Enemy's attack power decreased!");
                       item = false;
                       try {
-                        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+                        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
                       }
                       catch (InterruptedException e) {
                         e.printStackTrace(); //Prints exception.
@@ -740,7 +740,7 @@ public class finalProject {
           case "scan enemy":
             System.out.printf("" + enemyName + ": %d HP, %d Defense, %d Attack%n",enemyHp,enemyDef,enemyAttack);
             try {
-              TimeUnit.SECONDS.sleep(2); //Waits 3 seconds.
+              TimeUnit.SECONDS.sleep(3); //Waits 3 seconds.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
@@ -783,7 +783,7 @@ public class finalProject {
           gameOver(enemyName, floorNumber);
         }
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -832,7 +832,7 @@ public class finalProject {
           gameOver(enemyName, floorNumber);
         }
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
@@ -921,7 +921,7 @@ public class finalProject {
       enemyDef = enemyStats[1]; //Enemy defense
       enemyAttack = enemyStats[2]; //Enemy attack
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -930,21 +930,21 @@ public class finalProject {
         case "Cowardly Human, Josh" :
           System.out.println("Steel your wits! Calm your mind! Prepare yourself Warrior, for " + enemyName + " approaches!");
             try {
-              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
             }
             System.out.println("....Cowardly?");
             try {
-              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(1); //Waits 1 second.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
             }
             System.out.println("....Human?");
             try {
-              TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+              TimeUnit.SECONDS.sleep(1); //Waits 1 second.
             }
             catch (InterruptedException e) {
               e.printStackTrace(); //Prints exception.
@@ -953,6 +953,12 @@ public class finalProject {
             beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       break;
       default :   System.out.println("Steel your wits! Calm your mind! Prepare yourself Warrior, for " + enemyName + " approaches!");
+      try {
+        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
+      }
+      catch (InterruptedException e) {
+        e.printStackTrace(); //Prints exception.
+      }
       beginBossCombat(playerHp, playerDef, playerAttack, item, playerBlock, enemyHp, enemyDef, enemyAttack, floorNumber, enemyName, activeItem, maxHp);
       break;
     }
@@ -969,7 +975,7 @@ public class finalProject {
     enemyAttack = enemyStats[2]; //Enemy attack
     char c = enemyName.charAt(0);
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -989,7 +995,7 @@ public class finalProject {
   public static void newFloor(int playerHp, int playerDef, int playerAttack, Boolean item, Boolean playerBlock, int enemyHp, int enemyDef, int enemyAttack, int floorNumber, String enemyName, String activeItem, int maxHp){
     floorNumber++;
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -1002,7 +1008,7 @@ public class finalProject {
       playerDef = playerDef + 10;
 
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(3); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1013,7 +1019,7 @@ public class finalProject {
       System.out.printf("Your current def is %d. %n", playerDef);
 
       try {
-        TimeUnit.SECONDS.sleep(5); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1056,28 +1062,28 @@ public class finalProject {
           } while (!yesNo.equalsIgnoreCase("yes") || !yesNo.equalsIgnoreCase("no"));
         }
         try {
-          TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+          TimeUnit.SECONDS.sleep(1); //Waits 1 second.
         }
         catch (InterruptedException e) {
           e.printStackTrace(); //Prints exception.
         }
       }
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
       System.out.println("Be wary.... the enemies have grown much stronger....");
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
       System.out.printf("Now entering floor %d...%n", floorNumber);
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1122,7 +1128,7 @@ public class finalProject {
         } while (!yesNo.equalsIgnoreCase("yes") || !yesNo.equalsIgnoreCase("no"));
       }
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1137,14 +1143,14 @@ public class finalProject {
       playerHp = playerHp + 10; //Immediate health increase.
       playerHp = playerHp + ((maxHp - playerHp)/2); //Heals half of missing health.
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
       }
       System.out.printf("Your maximum HP is now %d! %n", maxHp);
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1154,7 +1160,7 @@ public class finalProject {
     }
     else if (levelUp.equalsIgnoreCase("defense")){
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1165,7 +1171,7 @@ public class finalProject {
     }
     else if (levelUp.equalsIgnoreCase("attack")){
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1175,7 +1181,7 @@ public class finalProject {
       System.out.printf("Your current attack is %d. %n", playerAttack);
     }
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(2); //Waits 2 seconds.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -1186,7 +1192,7 @@ public class finalProject {
       System.out.println("You hear a roar echoing from below... you have a bad feeling about this... (you have been fully healed!)");
       playerHp = maxHp;
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(4); //Waits 4 seconds.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1197,7 +1203,7 @@ public class finalProject {
     else {
       System.out.printf("Now entering floor %d...%n",floorNumber);
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
@@ -1209,7 +1215,7 @@ public class finalProject {
 
   public static void gameOver(String enemyName, int floorNumber){
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -1217,7 +1223,7 @@ public class finalProject {
     System.out.println();
     System.out.println("You have perished at the hands of the " + enemyName + ".");
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -1230,7 +1236,7 @@ public class finalProject {
       System.out.printf("You reached %d floors.%n",floorNumber);
     }
     try {
-      TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+      TimeUnit.SECONDS.sleep(1); //Waits 1 second.
     }
     catch (InterruptedException e) {
       e.printStackTrace(); //Prints exception.
@@ -1257,7 +1263,7 @@ public class finalProject {
       line = TextIO.getln();
       System.out.println(line);
       try {
-        TimeUnit.SECONDS.sleep(2); //Waits 1 second.
+        TimeUnit.SECONDS.sleep(1); //Waits 1 second.
       }
       catch (InterruptedException e) {
         e.printStackTrace(); //Prints exception.
